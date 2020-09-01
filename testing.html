@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <label>UserId</label>
+    <br />
+    <input type="text"
+           id="UserId"
+           value="1" readonly />
+    <input type="text"
+           id="UserName"
+           placeholder="UserName" />
+    <input type="text"
+           id="UserOccupation"
+           placeholder="UserOccupation" />
+    <button type="button" onclick="myFunction()">Add</button>
+    <p></p>
+    Sort by: 
+    <select id="sortby" onchange="Sorting()">
+        <option value="0">UserId</option>
+        <option value="1">UserName</option>
+        <option value="2">UserOccupation</option>
+    </select>
+    <p></p>
+    <table id="myTable">
+        <tr></tr>
+    </table>
+    <br>
+
+    
+
+    <script>
+        function myFunction() {
+            var table = document.getElementById("myTable");
+            var row = table.insertRow(document.getElementById('myTable').rows.length);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            cell1.innerHTML = document.getElementById('UserId').value;
+            cell2.innerHTML = document.getElementById('UserName').value;
+            cell3.innerHTML = document.getElementById('UserOccupation').value;
+        
+            
+            document.getElementById('UserId').value = document.getElementById('myTable').rows.length;
+            
+        }
+
+        function Sorting() {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("myTable");
+            switching = true;
+            
+                while (switching) {
+                    switching = false;
+                    rows = table.rows;
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        x = rows[i].getElementsByTagName("TD")[document.getElementById("sortby").value];
+                        y = rows[i + 1].getElementsByTagName("TD")[document.getElementById("sortby").value];
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }
+
+            
+        }
+    </script>
+
+</body>
+</html>
